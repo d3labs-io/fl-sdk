@@ -27,7 +27,7 @@ export class Nfts {
             signer,
         );
         const trx = await contract.create(name, symbol);
-        if (!trxHashOnly) {
+        if (trxHashOnly) {
             return {
                 trxHash: trx.hash
             };
@@ -60,7 +60,7 @@ export class Nfts {
             signer,
         );
         const trx = await contract.safeMint(signer.getAddress(), tokenURI);
-        if (!trxHashOnly) {
+        if (trxHashOnly) {
             return {
                 trxHash: trx.hash
             };
