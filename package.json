@@ -12,17 +12,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@ethersproject/shims": "^5.7.0",
-    "bcrypt": "^5.1.1",
-    "ethers": "^6.7.1",
-    "microbundle": "^0.15.1"
-  },
   "exports": {
     "require": "./dist/index.js",
     "default": "./dist/index.modern.js"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "ethers": "^6.7.1",
+    "microbundle": "^0.15.1"
+  }
 }
