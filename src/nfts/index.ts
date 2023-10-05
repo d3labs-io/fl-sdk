@@ -13,7 +13,7 @@ export class Nfts {
         this.nftFactoryAddress = config.nftFactoryAddress;
     }
 
-    async createSmartContract(privateKey: string, name: string, symbol: string, waitReceipt = true): Promise<CreateSmartContractRes | string> {
+    async createSmartContract(privateKey: string, name: string, symbol: string, trxHashOnly?: boolean): Promise<CreateSmartContractRes> {
         const provider = new ethers.JsonRpcProvider(
             this.jsonRpcProvider,
         );
@@ -27,8 +27,10 @@ export class Nfts {
             signer,
         );
         const trx = await contract.create(name, symbol);
-        if (!waitReceipt) {
-            return trx.hash;
+        if (!trxHashOnly) {
+            return {
+                trxHash: trx.hash
+            };
         }
 
         const receipt = await trx.wait();
@@ -43,7 +45,7 @@ export class Nfts {
     }
 
     async mint(
-        privateKey: string, contractAddress: string, tokenURI: string, waitReceipt = true
+        privateKey: string, contractAddress: string, tokenURI: string, trxHashOnly?: boolean
     ): Promise<MintTokenRes> {
         const provider = new ethers.JsonRpcProvider(
             this.jsonRpcProvider,
@@ -58,8 +60,10 @@ export class Nfts {
             signer,
         );
         const trx = await contract.safeMint(signer.getAddress(), tokenURI);
-        if (!waitReceipt) {
-            return trx.hash;
+        if (!trxHashOnly) {
+            return {
+                trxHash: trx.hash
+            };
         }
         const receipt = await trx.wait();
         const tokenId = receipt.logs[0].args[2].toString();

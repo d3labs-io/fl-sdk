@@ -1,8 +1,8 @@
 export declare type CreateSmartContractRes = {
-    address: string;
     trxHash: string;
+    address?: string;
 };
 export declare type MintTokenRes = {
     trxHash: string;
-    tokenId: string;
+    tokenId?: string;
 };
