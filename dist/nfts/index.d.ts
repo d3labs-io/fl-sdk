@@ -4,7 +4,7 @@ export declare class Nfts {
     private jsonRpcProvider;
     private nftFactoryAddress;
     constructor(config: BlockchainConfig);
-    createSmartContract(privateKey: string, name: string, symbol: string): Promise<CreateSmartContractRes>;
-    mint(privateKey: string, contractAddress: string, tokenURI: string): Promise<MintTokenRes>;
+    createSmartContract(privateKey: string, name: string, symbol: string, waitReceipt?: boolean): Promise<CreateSmartContractRes | string>;
+    mint(privateKey: string, contractAddress: string, tokenURI: string, waitReceipt?: boolean): Promise<MintTokenRes>;
     getTokenURI(contractAddress: string, tokenId: string): Promise<string>;
 }
