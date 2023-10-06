@@ -5,10 +5,9 @@
 - **Feature 1**: Create Wallet.
 - **Feature 2**: Create Smart Contract.
 - **Feature 3**: Mint Token.
-- **Feature 3**: Get TokenURI.
-- **Feature 3**: Get Transaction Data.
-- **Feature 3**: Get Transaction Receipt Data.
-- ...
+- **Feature 4**: Get TokenURI.
+- **Feature 5**: Get Transaction Data.
+- **Feature 6**: Get Transaction Receipt Data.
 
 ## Getting Started
 
