@@ -2,12 +2,19 @@
 
 ## Features
 
+### NFT Feature
 - **Feature 1**: Create Wallet.
 - **Feature 2**: Create Smart Contract.
 - **Feature 3**: Mint Token.
 - **Feature 4**: Get TokenURI.
-- **Feature 5**: Get Transaction Data.
-- **Feature 6**: Get Transaction Receipt Data.
+
+### General Feature
+- **Feature 1**: Get Transaction Data.
+- **Feature 2**: Get Transaction Receipt Data.
+
+### IPFS Feature
+- **Feature 1**: Upload File.
+- **Feature 2**: Get File.
 
 ## Getting Started
 
@@ -110,4 +117,50 @@ const tokenURI = await nftSdk.nfts.getTokenURI(contractAddress, tokenId);
 
 // output:
 // ipfs://QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
+```
+
+* IPFS Upload File
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+
+const metadata = {
+    title: eventId,
+    type: "object",
+    properties: {
+        name: {
+            type: "string",
+            description: eventName,
+        },
+        description: {
+            type: "string",
+            description: eventDesc,
+        },
+    }
+}
+
+const cid = await nftSdk.ipfs.uploadFile(Buffer.from(JSON.stringify(metadata)));
+
+// output:
+// QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
+```
+
+* IPFS Get File
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+
+const cid = 'QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja';
+const fileData = await nftSdk.ipfs.getFile(cid);
+
+// output:
+// QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
 ```
