@@ -162,5 +162,8 @@ const cid = 'QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja';
 const fileData = await nftSdk.ipfs.getFile(cid);
 
 // output:
-// QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
+// {
+//   fileBuffer: <Buffer 74 68 69 73 20 69 73 20 66 69 6c 65 20 66 6f 72 20 74 65 73 74 69 6e 67>,
+//   contentType: 'text/plain; charset=utf-8'
+// }
 ```
