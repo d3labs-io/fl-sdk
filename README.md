@@ -7,6 +7,10 @@
 - **Feature 2**: Create Smart Contract.
 - **Feature 3**: Mint Token.
 - **Feature 4**: Get TokenURI.
+- **Feature 5**: Generate Metadata.
+- **Feature 6**: Get JSON Metadata.
+- **Feature 7**: Get Token File.
+- **Feature 8**: Check Metadata Schema.
 
 ### General Features
 - **Feature 1**: Get Transaction Data.
@@ -42,6 +46,8 @@ const flSdk = require('fl-sdk');
 const sdk = new sdk.SeaseedNFTSdk({
     jsonRpcProvider: env.JSON_RPC_PROVIDER,
     nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
 })
 
 # Use the SDK to perform a task
@@ -50,6 +56,8 @@ const wallet = await sdk.general.createWallet();
 
 ### Examples
 
+#### NFT Features
+
 * Create Wallet
 ```javascript
 const flSdk = require('fl-sdk');
@@ -57,6 +65,8 @@ const flSdk = require('fl-sdk');
 const sdk = new sdk.SeaseedNFTSdk({
     jsonRpcProvider: env.JSON_RPC_PROVIDER,
     nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
 })
 
 const wallet = await sdk.general.createWallet();
@@ -75,6 +85,8 @@ const flSdk = require('fl-sdk');
 const sdk = new sdk.SeaseedNFTSdk({
     jsonRpcProvider: env.JSON_RPC_PROVIDER,
     nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
 })
 
 const contract = await sdk.nfts.createSmartContract(privateKey, contractName, contractSymbol);
@@ -93,6 +105,8 @@ const flSdk = require('fl-sdk');
 const sdk = new sdk.SeaseedNFTSdk({
     jsonRpcProvider: env.JSON_RPC_PROVIDER,
     nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
 })
 
 const token = await nftSdk.nfts.mint(privateKey, contractAddress, tokenURI);
@@ -111,6 +125,8 @@ const flSdk = require('fl-sdk');
 const sdk = new sdk.SeaseedNFTSdk({
     jsonRpcProvider: env.JSON_RPC_PROVIDER,
     nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
 })
 
 const tokenURI = await nftSdk.nfts.getTokenURI(contractAddress, tokenId);
@@ -118,6 +134,87 @@ const tokenURI = await nftSdk.nfts.getTokenURI(contractAddress, tokenId);
 // output:
 // ipfs://QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
 ```
+
+* Generate Metadata
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    jsonRpcProvider: env.JSON_RPC_PROVIDER,
+    nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+
+const fileBuffer = fs.readFileSync('test_file.txt');
+
+const metadataURI = await nftSdk.nfts.generateMetadata({
+    name: "string",
+    description: "string",
+    timestamp: Date.now(),
+    fileBuffer,
+});
+
+// output:
+// ipfs://QmdzScmzzBw6g4K4c3gBGZs2kKA3chg8Q2U1UoY4Pxayja
+```
+
+* Get JSON Metadata
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    jsonRpcProvider: env.JSON_RPC_PROVIDER,
+    nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+
+const jsonMetadata = await nftSdk.nfts.getJSONMetadata(contractAddress, tokenId);
+
+// output:
+// {"name":"EVENT-01-NAME","description":"testing event 1 description","timestamp":1697123523965,"file":"ipfs://QmYiPAWa7AGYwpFYYWLejP8uB8pgx3ovCMV88HDJgKJ65H"}
+```
+
+* Get Token File
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    jsonRpcProvider: env.JSON_RPC_PROVIDER,
+    nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+
+const fileData = await nftSdk.nfts.getTokenFile(contractAddress, tokenId);
+
+// output:
+// {
+//   fileBuffer: <Buffer 74 68 69 73 20 69 73 20 66 69 6c 65 20 66 6f 72 20 74 65 73 74 69 6e 67>,
+//   contentType: 'text/plain; charset=utf-8'
+// }
+```
+
+* Check Metadata Schema
+```javascript
+const flSdk = require('fl-sdk');
+
+const sdk = new sdk.SeaseedNFTSdk({
+    jsonRpcProvider: env.JSON_RPC_PROVIDER,
+    nftFactoryAddress: env.NFT_FACTORY_ADDRESS,
+    ipfsUrl: env.IPFS_URL,
+    ipfsToken: env.IPFS_TOKEN,
+})
+const jsonMetadata = await nftSdk.nfts.getJSONMetadata(contractAddress, tokenId);
+const isValid = await nftSdk.nfts.checkMetadataSchema(jsonMetadata);
+
+// output:
+// true
+```
+
+
+#### IPFS Features
 
 * IPFS Upload File
 ```javascript
