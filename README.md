@@ -2,17 +2,17 @@
 
 ## Features
 
-### NFT Feature
+### NFT Features
 - **Feature 1**: Create Wallet.
 - **Feature 2**: Create Smart Contract.
 - **Feature 3**: Mint Token.
 - **Feature 4**: Get TokenURI.
 
-### General Feature
+### General Features
 - **Feature 1**: Get Transaction Data.
 - **Feature 2**: Get Transaction Receipt Data.
 
-### IPFS Feature
+### IPFS Features
 - **Feature 1**: Upload File.
 - **Feature 2**: Get File.
 
