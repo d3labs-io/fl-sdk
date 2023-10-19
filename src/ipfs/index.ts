@@ -1,28 +1,28 @@
 import { BlockchainConfig } from "src/config/blockchain.config";
-import { Axios } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { GetFileRes } from "./types";
-import FormData from "form-data"
 
 export class Ipfs {
-    private ipfsHttp: Axios;
+    private ipfsHttp: AxiosInstance;
 
     constructor(config: BlockchainConfig) {
-        this.ipfsHttp = new Axios({
+        this.ipfsHttp = axios.create({
             baseURL: config.ipfsUrl,
             headers: {
                 Authorization: `Bearer ${config.ipfsToken}`
-            }
+            },
         })
+
     }
 
     async uploadFile(fileBuffer: Buffer): Promise<string> {
-        const formData = new FormData();
-        formData.append('file', fileBuffer);
-        const response = await this.ipfsHttp.post('/add', formData);
+        const response = await this.ipfsHttp.postForm('/add', {
+            file: fileBuffer
+        });
         if (response.status >= 200 && response.status < 300 === false) {
             throw new Error(`failed, status code: ${response.status}, status text: ${response.statusText}`)
         }
-        const data = JSON.parse(response.data);
+        const data = response.data;
         return data.cid;
     }
 
